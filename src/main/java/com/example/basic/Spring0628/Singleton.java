@@ -1,4 +1,4 @@
-package com.example.basic;
+package com.example.basic.Spring0628;
 
 import lombok.Getter;
 

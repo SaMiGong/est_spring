@@ -1,7 +1,5 @@
-package com.example.basic;
+package com.example.basic.Spring0628;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
