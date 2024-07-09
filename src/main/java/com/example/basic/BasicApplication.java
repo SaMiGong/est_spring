@@ -1,13 +1,13 @@
 package com.example.basic;
 
+
 import jakarta.annotation.PostConstruct;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootTest
-class BasicApplicationTests {
+@SpringBootApplication(scanBasePackages = "com.example.basic.Spring0709")
+public class BasicApplication {
     @Value("${server.port}")
     private int port;
 
@@ -23,6 +23,4 @@ class BasicApplicationTests {
     public static void main(String[] args) {
         SpringApplication.run(BasicApplication.class, args);
     }
-
-
 }
