@@ -46,4 +46,10 @@ public class PostController {
         model.addAttribute("post", new Post());
         return "post/detail";
     }
+
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable("id") Long id){
+        posts.removeIf(post -> post.getId()==id);
+        return "redirect:/posts";
+    }
 }
