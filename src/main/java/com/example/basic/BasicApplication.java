@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = "com.example.basic.Spring0716")
+@SpringBootApplication(scanBasePackages = "com.example.basic.Spring0717")
 public class BasicApplication {
     @Value("${server.port}")
     private int port;
