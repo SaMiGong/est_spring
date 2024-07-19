@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class ExecutionTimeAspect {
 
-    @Around("@annotation(logExecutionTime)")
+    @Around("@annotation(LogExecutionTime)")
     public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
         long startTime = System.currentTimeMillis();
 
@@ -23,6 +23,11 @@ public class ExecutionTimeAspect {
 
         String methodName = joinPoint.getSignature().getName();
 
-        log.info("메서드: {} 실행 시간: {}ms", methodName, executionTime);
+        log.info("메서드: {} 실행 시간: {} ms", methodName, executionTime);
+
+        return result;
+
+
     }
 }
+

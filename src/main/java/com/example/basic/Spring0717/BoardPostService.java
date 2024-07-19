@@ -17,6 +17,7 @@ public class BoardPostService {
     private Long nextPostId = 1L;
     private Long nextCommentId = 1L;
 
+    @LogExecutionTime
     public BoardPostDto createBoardPost(BoardPostDto boardPostDto) {
         BoardPost boardPost = convertToBoardPostEntity(boardPostDto);
         boardPost.setId(nextPostId++);
@@ -75,7 +76,7 @@ public class BoardPostService {
         commentDto.setCreatedAt(comment.getCreatedAt());
         return commentDto;
     }
-
+    @LogExecutionTime
     public List<BoardPostDto> getAllBoardPosts() {
         return boardPosts.stream()
                 .map(this::convertToBoardPostDto)
@@ -83,7 +84,7 @@ public class BoardPostService {
     }
 
     public BoardPostDto getBoardPostDtoById(Long id) {
-        log.info("뀨뀨뀨뀨뀨뀨뀨뀨");
+        log.info("뀨뀨뀨뀨뀨뀨 로큐큐뀨");
         return boardPosts.stream()
                 .filter(post -> post.getId().equals(id))
                 .map(this::convertToBoardPostDto)
@@ -94,6 +95,8 @@ public class BoardPostService {
     public void deleteBoardPost(Long id) {
         BoardPost boardPost = findBoardPostById(id);
         boardPosts.remove(boardPost);
+        log.info("삭제성공하였습니다.");
+
     }
 
     private BoardPost findBoardPostById(Long id) {
@@ -103,8 +106,7 @@ public class BoardPostService {
                 .orElseThrow(() -> new IllegalArgumentException("id에 해당하는 글을 찾을 수 없습니다."));
     }
 
-    public BoardPostDto updateBoardPost(Long id, BoardPostDto updateBoardPostDto)
-    {
+    public BoardPostDto updateBoardPost(Long id, BoardPostDto updateBoardPostDto) {
         BoardPost boardPost = findBoardPostById(id);
         boardPost.setTitle(updateBoardPostDto.getTitle());
         boardPost.setContent(updateBoardPostDto.getContent());
@@ -119,5 +121,19 @@ public class BoardPostService {
         comment.setCreatedAt(LocalDateTime.now());
         boardPost.addComment(comment);
         return convertToCommentDto(comment);
+    }
+
+    public void deleteComment(Long postId, Long commentId) {
+        BoardPost boardPost = findBoardPostById(postId);
+        Comment comment = findCommentById(commentId, boardPost);
+
+        boardPost.removeComment(comment);
+    }
+
+    private static Comment findCommentById(Long commentId, BoardPost boardPost) {
+        return boardPost.getComments().stream()
+                .filter(c -> c.getId().equals(commentId))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("댓글을 찾을 수 없습니다."));
     }
 }
